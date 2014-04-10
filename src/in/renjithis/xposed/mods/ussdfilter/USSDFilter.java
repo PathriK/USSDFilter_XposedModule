@@ -1,19 +1,15 @@
 package in.renjithis.xposed.mods.ussdfilter;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
-import android.app.Notification;
 import android.app.NotificationManager;
+import android.util.Log;
 
-// Imports for XposedBridge
+//Imports for XposedBridge
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -27,8 +23,11 @@ public class USSDFilter implements IXposedHookLoadPackage {
 
 	private String TAG="USSDFilter";
 	
+	private boolean mDialed = false;
+	
 	private void myLog(String logString) {
 		XposedBridge.log(TAG + ": " + logString);
+		Log.i(TAG, logString);
 	}
 	
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
@@ -58,6 +57,11 @@ public class USSDFilter implements IXposedHookLoadPackage {
 				Method getMessageMethod = mmiCode.getClass().getDeclaredMethod("getMessage");
 				Method isUssdRequestMethod = mmiCode.getClass().getDeclaredMethod("isUssdRequest");
 		
+				if(mDialed){
+					myLog("USSD request Dialed. Not filtering");
+					mDialed = false;
+					return;
+				}
 				if((Boolean)isUssdRequestMethod.invoke(mmiCode))
 				{
 					myLog("USSD Request detected. Not filtering");
@@ -124,6 +128,23 @@ public class USSDFilter implements IXposedHookLoadPackage {
 				}
 			}
 		});
+		findAndHookMethod("com.android.phone.PhoneUtils", 
+				lpparam.classLoader, 
+				"displayMMIInitiate", 
+				"android.content.Context",
+				"com.android.internal.telephony.MmiCode",
+				"android.os.Message",
+				"android.app.Dialog",
+				new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+				// this will be called before the USSD message is displayed by the original method
+				myLog("beforeHookedMethod displayMMIInitiate");
+				mDialed = true;
+			}
+		});
+			
+
 	}
 	
 	private ArrayList<Filter> filterSettings() {
@@ -134,7 +155,7 @@ public class USSDFilter implements IXposedHookLoadPackage {
 		filter.name = "Filter1";
 		filter.type= FilterType.TYPE_SUBSTRING;
 		filter.subStringRegEx = FileManagement.readFileFromExternalStorage("USSDFilterString.conf");
-		filter.outputType = OutputType.TYPE_NOTIFICATION;
+		filter.outputType = OutputType.TYPE_TOAST;
 		filter.priority = 1;
 		filter.enabled = Boolean.TRUE;
 		
