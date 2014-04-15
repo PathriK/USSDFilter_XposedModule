@@ -4,22 +4,23 @@
 
     <!-- preference strings -->
     <string name="pref_actionbar_add">Add</string>
+    <string name="pref_actionbar_pref">Pref</string>
     <string name="pref_heading_filters">Filters</string>
     <string name="pref_heading_other">Other</string>
     <string name="pref_log">Log</string>
     <string name="pref_donate">Donate</string>
     <string name="pref_about">About</string>
     <string name="title_filter_detail">Filter Details</string>
-    
+    <string name="title_activity_pref">Preference</string>
+    <string name="pref_title_block_ussd">Enable blocking of USSDs</string>
+    <string name="pref_title_log_ussd">Enable logging of USSDs</string>
     <string name="pref_send_report">Send crash reports</string>
     <string name="pref_send_report_summary">Helps to fix bugs</string>
     <string name="pref_sync_frequency">Sync frequency</string>
     <string name="pref_sync_frequency_summary">Set the sync frequency</string>
     <string name="pref_user_name">Set username</string>
     <string name="pref_user_name_summary">Set your username</string>
-     
     <string name="pref_user_profile">User Profile</string>
     <string name="pref_update_setting">Update Settings</string>
-    
-    
+
 </resources>

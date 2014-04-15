@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.renjithis.xposed.mods.ussdfilter"
     android:versionCode="1"
@@ -6,21 +7,29 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="17" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="xposedmodule" android:value="true"/>
-        <meta-data android:name="xposedminversion" android:value="2.1*"/>
-        <meta-data android:value="Filter out popups shown for call/sms/data usage/balance" android:name="xposeddescription"/>
-        <activity 
-            android:label="@string/app_name" 
-            android:name="in.renjithis.xposed.mods.ussdfilter.SettingsActivity" 
-            android:icon="@drawable/ic_launcher">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="2.1*" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Filter out popups shown for call/sms/data usage/balance" />
+
+        <activity
+            android:name="in.renjithis.xposed.mods.ussdfilter.SettingsActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,10 +39,18 @@
         <activity
             android:name="in.renjithis.xposed.mods.ussdfilter.FilterDetailActivity"
             android:label="@string/title_filter_detail"
-            android:parentActivityName=".FilterListActivity" >
+            android:parentActivityName="in.renjithis.xposed.mods.ussdfilter.FilterListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FilterListActivity" />
+        </activity>
+        <activity
+            android:name="in.renjithis.xposed.mods.ussdfilter.PrefActivity"
+            android:label="@string/title_activity_pref"
+            android:parentActivityName="in.renjithis.xposed.mods.ussdfilter.SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.renjithis.xposed.mods.ussdfilter.SettingsActivity" />
         </activity>
     </application>
 

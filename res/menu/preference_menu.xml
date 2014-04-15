@@ -5,7 +5,11 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/pref_actionbar_add"/>
-<!--              android:icon="@drawable/ic_action_search"
-     -->
-    
-</menu> 
+    <item
+        android:id="@+id/action_pref"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/pref_actionbar_pref"/>
+    <!-- android:icon="@drawable/ic_action_search" -->
+
+</menu>

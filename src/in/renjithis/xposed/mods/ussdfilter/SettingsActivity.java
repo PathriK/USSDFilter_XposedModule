@@ -31,38 +31,44 @@ public class SettingsActivity extends FragmentActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.preference_menu, menu);
-		
+
 		return true;
-	} 
-	
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			Toast.makeText(this, "Add selected. not yet implemented", Toast.LENGTH_SHORT).show();
-			
-//			  Intent intent = new Intent(this, FilterPropertiesActivity.class);
-//			  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			  startActivity(intent);
-			
+			Toast.makeText(this, "Add selected. not yet implemented",
+					Toast.LENGTH_SHORT).show();
+
+			// Intent intent = new Intent(this, FilterPropertiesActivity.class);
+			// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			// startActivity(intent);
+
 			break;
+
+		case R.id.action_pref:
+			Intent intent = new Intent(this, PrefActivity.class);
+			startActivity(intent);
+			break;
+
 		case android.R.id.home:
 			Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show();
 			finish();
 			break;
-			
+
 		default:
 			break;
 		}
 
 		return true;
-	} 
-	
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +76,8 @@ public class SettingsActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_filter_list);
 
 		// enable action bar home button
-    	getActionBar().setDisplayHomeAsUpEnabled(true);
-    	
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		if (findViewById(R.id.filter_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
