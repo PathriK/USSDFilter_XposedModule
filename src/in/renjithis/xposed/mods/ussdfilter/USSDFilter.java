@@ -48,9 +48,9 @@ public class USSDFilter implements IXposedHookLoadPackage {
 		myLog("Found phone app");
 
 		// get the reference to Preference file of our Application
-		xpref = new XSharedPreferences(packageName);
+//		xpref = new XSharedPreferences(packageName);
 		// Check whether it is created or not
-		isEmpty = xpref.getAll().isEmpty();
+//		isEmpty = xpref.getAll().isEmpty();
 
 		findAndHookMethod("com.android.phone.PhoneUtils", lpparam.classLoader,
 				"displayMMIComplete", "com.android.internal.telephony.Phone",
@@ -71,11 +71,11 @@ public class USSDFilter implements IXposedHookLoadPackage {
 						Method isUssdRequestMethod = mmiCode.getClass()
 								.getDeclaredMethod("isUssdRequest");
 
-						if (isEmpty) {
+//						if (isEmpty) {
 							// Try loading preferance again
 							xpref = new XSharedPreferences(packageName);
 							isEmpty = xpref.getAll().isEmpty();
-						}
+//						}
 						// if preference is not created stop managing USSD else
 						// proceed
 						if (isEmpty)
